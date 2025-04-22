@@ -1,0 +1,76 @@
+﻿@page "/DecryptPage"
+@using Model
+@rendermode InteractiveServer
+
+
+<style>
+    .boxes{
+        display: flex;
+    }
+</style>
+
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h3>Encrypting Page</h3>
+        </div>
+    </div>
+    
+    
+    <div class="boxes">
+        <div class="col-9">
+            <div class="form-group mb-3">
+                <label for="Keyword">Enter Keyword: </label>
+                <input id="Keyword" class="form-control" type="text" placeholder="Keyword" @bind="_keyword"/>
+            </div>
+
+            <div class="form-group- mb-3">
+                <label for="Encription">Enter encrypted Message: </label>
+                <input class="form-control" id="Encryption" type="text" placeholder="Encryption" @bind="_encryption"/>
+            </div>
+
+            <div class="mb-4">
+                <button class="btn btn-primary" type="submit" @onclick="StartDecryption">Decrypt</button>
+            </div>
+
+
+            <div class="form-group mb-4">
+                <label for="Decrypted">Decryptet Message:</label>
+                <input class="form-control" id="Decrypted" type="text" value="@decrypted" readonly/>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="text-end">
+                @if (clicked)
+                {
+                <img src="img/katze.jpg" width="280" class="img-fluid"/>
+                }
+                else
+                {
+                <img src="img/katzeUnscharf.jpg" width="280" class="img-fluid"/>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@code {
+    private string _keyword{ get; set; }
+    private string _encryption{ get; set; }
+    private string decrypted { get; set; }
+    private bool clicked { get; set; } = false; 
+
+    public void StartDecryption()
+    {
+        Console.WriteLine("Probierennnnnnn");
+        Matrix n = new Matrix("key");
+
+        decrypted = _encryption;
+        clicked = true;
+        //decrypted = n.Decrypt(_encryption);
+    }
+}
