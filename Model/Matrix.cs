@@ -14,36 +14,57 @@ public class Matrix : IChiffre
     }
     public string Encrypt(string msg)
     {
-        
-        List<string> paars  =new List<string>();
-        for (int i = 0; i < msg.Length; i=i+2)
-        {
-            paars.Add(msg[i] + "" + msg[i+1]);
-            
-        }
+        // Normalize input: remove spaces, replace 'j' with 'i', etc.
+        msg = msg.ToLower().Replace("j", "i").Replace(" ", "");
 
-        foreach (var paar in paars)
+        // Prepare digraphs (pairs of characters)
+        List<string> pairs = new List<string>();
+        for (int i = 0; i < msg.Length; i += 2)
         {
-            if (CheckMethode(paar[0]).x == CheckMethode(paar[1]).x)
+            char first = msg[i];
+            char second;
+
+            if (i + 1 >= msg.Length)
             {
-                return CheckHorizontal(paar[0], paar[1]);
+                second = 'x'; // pad with 'x' if odd number of chars
             }
-            else if (CheckMethode(paar[0]).y == CheckMethode(paar[1]).y)
+            else if (msg[i] == msg[i + 1])
             {
-                return CheckVertikal(paar[0], paar[1]);
+                second = 'x'; // insert filler between duplicate letters
+                i--; // redo second letter on next loop
             }
             else
             {
-                //CheckRectangle(paar[0], paar[1]);
+                second = msg[i + 1];
             }
-            
-            
-            
-            
+
+            pairs.Add($"{first}{second}");
         }
 
-        return null;
+        // Encrypt each pair
+        StringBuilder encrypted = new StringBuilder();
+        foreach (var pair in pairs)
+        {
+            var pos1 = CheckMethode(pair[0]);
+            var pos2 = CheckMethode(pair[1]);
+
+            if (pos1.y == pos2.y) // Same row
+            {
+                encrypted.Append(CheckHorizontal(pair[0], pair[1]));
+            }
+            else if (pos1.x == pos2.x) // Same column
+            {
+                encrypted.Append(CheckVertikal(pair[0], pair[1]));
+            }
+            else // Rectangle case
+            {
+                //encrypted.Append(CheckRectangle(pair[0], pair[1]));
+            }
+        }
+
+        return encrypted.ToString();
     }
+
 
     public string Decrypt(string msg)
     {
