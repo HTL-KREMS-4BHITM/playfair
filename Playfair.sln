@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playfair", "Playfair\Playfair.csproj", "{DC95BFDC-9071-4D6E-A151-6C80E9814D8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{68C2DE90-E4A0-4359-AECA-A8E7BE0982D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{1BF3F212-9D41-42AD-B9D3-0416E11AB662}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{DC95BFDC-9071-4D6E-A151-6C80E9814D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC95BFDC-9071-4D6E-A151-6C80E9814D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC95BFDC-9071-4D6E-A151-6C80E9814D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68C2DE90-E4A0-4359-AECA-A8E7BE0982D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68C2DE90-E4A0-4359-AECA-A8E7BE0982D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68C2DE90-E4A0-4359-AECA-A8E7BE0982D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68C2DE90-E4A0-4359-AECA-A8E7BE0982D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BF3F212-9D41-42AD-B9D3-0416E11AB662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BF3F212-9D41-42AD-B9D3-0416E11AB662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BF3F212-9D41-42AD-B9D3-0416E11AB662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BF3F212-9D41-42AD-B9D3-0416E11AB662}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
