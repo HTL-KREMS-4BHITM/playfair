@@ -14,10 +14,8 @@ public class Matrix : IChiffre
     }
     public string Encrypt(string msg)
     {
-        // Normalize input: remove spaces, replace 'j' with 'i', etc.
         msg = msg.ToLower().Replace("j", "i").Replace(" ", "");
 
-        // Prepare digraphs (pairs of    characters)
         List<string> pairs = new List<string>();
         for (int i = 0; i < msg.Length; i += 2)
         {
@@ -26,12 +24,12 @@ public class Matrix : IChiffre
 
             if (i + 1 >= msg.Length)
             {
-                second = 'x'; // pad with 'x' if odd number of chars
+                second = 'x';
             }
             else if (msg[i] == msg[i + 1])
             {
-                second = 'x'; // insert filler between duplicate letters
-                i--; // redo second letter on next loop
+                second = 'x';
+                i--; 
             }
             else
             {
@@ -41,22 +39,21 @@ public class Matrix : IChiffre
             pairs.Add($"{first}{second}");
         }
 
-        // Encrypt each pair
         StringBuilder encrypted = new StringBuilder();
         foreach (var pair in pairs)
         {
             var pos1 = CheckMethode(pair[0]);
             var pos2 = CheckMethode(pair[1]);
 
-            if (pos1.y == pos2.y) // Same row
+            if (pos1.y == pos2.y) 
             {
                 encrypted.Append(CheckHorizontal(pair[0], pair[1]));
             }
-            else if (pos1.x == pos2.x) // Same column
+            else if (pos1.x == pos2.x)
             {
                 encrypted.Append(CheckVertikal(pair[0], pair[1]));
             }
-            else // Rectangle case
+            else 
             {
                 encrypted.Append(CheckRectangle(pair[0], pair[1]));
             }
@@ -68,7 +65,38 @@ public class Matrix : IChiffre
 
     public string Decrypt(string msg)
     {
-        throw new NotImplementedException();
+        msg = msg.ToLower().Replace("j", "i").Replace(" ", "");
+
+        List<string> pairs = new List<string>();
+        for (int i = 0; i < msg.Length; i += 2)
+        {
+            char first = msg[i];
+            char second = (i + 1 >= msg.Length) ? 'x' : msg[i + 1];
+            pairs.Add($"{first}{second}");
+        }
+
+        StringBuilder decrypted = new StringBuilder();
+        foreach (var pair in pairs)
+        {
+            var pos1 = CheckMethode(pair[0]);
+            var pos2 = CheckMethode(pair[1]);
+
+            if (pos1.y == pos2.y)
+            {
+                decrypted.Append(CheckHorizontal(pair[0], pair[1], false));
+            }
+            else if (pos1.x == pos2.x)
+            {
+                decrypted.Append(CheckVertikal(pair[0], pair[1], false));
+            }
+            else
+            {
+                decrypted.Append(CheckRectangle(pair[0], pair[1]));
+            }
+        }
+
+        return decrypted.ToString();
+
     }
     
     #region Crypting
@@ -93,29 +121,32 @@ public class Matrix : IChiffre
         return (x, y);
     }
 
-    private string CheckHorizontal(char c1, char c2)
+    private string CheckHorizontal(char c1, char c2, bool encrypt = true)
     {
         var (x1, y1) = CheckMethode(c1);
         var (x2, y2) = CheckMethode(c2);
 
-        // Wrap around horizontally using modulo
-        char newletter = Grid[y1, (x1 + 1) % 5];
-        char secondletter = Grid[y2, (x2 + 1) % 5];
+        int shift = encrypt ? 1 : -1;
+
+        char newletter = Grid[y1, (x1 + shift + 5) % 5];
+        char secondletter = Grid[y2, (x2 + shift + 5) % 5];
 
         return new string(new[] { newletter, secondletter });
     }
 
-    private string CheckVertikal(char c1, char c2)
+    private string CheckVertikal(char c1, char c2, bool encrypt = true)
     {
         var (x1, y1) = CheckMethode(c1);
         var (x2, y2) = CheckMethode(c2);
 
-        // Wrap around vertically using modulo
-        char newletter = Grid[(y1 + 1) % 5, x1];
-        char secondletter = Grid[(y2 + 1) % 5, x2];
+        int shift = encrypt ? 1 : -1;
+
+        char newletter = Grid[(y1 + shift + 5) % 5, x1];
+        char secondletter = Grid[(y2 + shift + 5) % 5, x2];
 
         return new string(new[] { newletter, secondletter });
     }
+
 
     private string CheckRectangle(char c1, char c2)
     {
@@ -127,6 +158,7 @@ public class Matrix : IChiffre
 
         return new string(new[] { newletter, secondletter });
     }
+
     #endregion
     
     

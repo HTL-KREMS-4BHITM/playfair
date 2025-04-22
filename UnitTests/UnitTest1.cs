@@ -5,7 +5,7 @@ namespace UnitTests;
 public class Tests
 {
     
-    private Matrix m = new Matrix("zuhause");
+    private Matrix m = new Matrix("informatik");
     private Matrix keymatrix = new Matrix("key");
     
     [SetUp]
@@ -43,7 +43,7 @@ public class Tests
     {
         
         string decryption = m.Decrypt("eghiwsmirf");
-        Assert.Equals(decryption, "decryption");
+        Assert.That("decryption", Is.EqualTo(decryption));
     }
     [Test]
     public void CorrectEncryptionTest()
@@ -55,7 +55,7 @@ public class Tests
     public void CorrectDecryptionTest()
     {
         string decryption = keymatrix.Decrypt("qbtp ldfpkrpoio");
-        Assert.Equals(decryption, "test decryption");
+        Assert.That("testdecryption", Is.EqualTo(decryption));
     }
     #endregion
 
@@ -87,19 +87,19 @@ public class Tests
     public void VerticalMethodDecryptionTest()
     {
         string decryption = keymatrix.Decrypt("ho");
-        Assert.Equals(decryption, "bh");
+        Assert.That("bh", Is.EqualTo(decryption));
     }
     [Test]
     public void RectangleMethodDecryptionTest()
     {
         string decryption = keymatrix.Decrypt("tm");
-        Assert.Equals(decryption, "ro");
+        Assert.That("ro", Is.EqualTo(decryption));
     }
     [Test]
     public void HorizontalMethodDecryptionTest()
     {
         string decryption = keymatrix.Decrypt("mn");
-        Assert.Equals(decryption, "lm");
+        Assert.That("lm", Is.EqualTo(decryption));
     }
     #endregion   
 
