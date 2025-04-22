@@ -35,14 +35,14 @@ public class Tests
     public void SpecificEncryptionTest()
     {
         
-        string encryption = m.Encrypt("ha");
+        string encryption = m.Encrypt("mega test");
         Assert.That("tcdkeqqk", Is.EqualTo(encryption));
     }
     [Test]
     public void SpecificDecryptionTest()
     {
         
-        string decryption = m.Decrypt("eghiwsmirf");
+        string decryption = m.Decrypt("eghiwsmfrf");
         Assert.That("decryption", Is.EqualTo(decryption));
     }
     [Test]
