@@ -168,7 +168,7 @@ public class Matrix : IChiffre
     {
         char[,] matrix = new char[5, 5];
         List<char> merged = new List<char>(key);
-        merged.AddRange(GetAlphabet(key)); // Fill up with missing letters
+        merged.AddRange(GetAlphabet(key)); 
 
         int index = 0;
         for (int row = 0; row < 5; row++)
