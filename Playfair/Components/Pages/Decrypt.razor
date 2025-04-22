@@ -1,0 +1,44 @@
+﻿@page "/decrypt"
+@using Model
+@rendermode InteractiveServer
+
+<h3>Playfair Entschlüsselung</h3>
+
+<div class="mb-3">
+    <label for="geheimtext" class="form-label">Geheimtext</label>
+    <input id="geheimtext" @bind="inputText" class="form-control" placeholder="Text zum Entschlüsseln..." />
+</div>
+
+<div class="mb-3">
+    <label for="schluessel" class="form-label">Schlüssel</label>
+    <input id="schluessel" @bind="keyText" class="form-control" placeholder="Schlüssel zum Entschlüsseln..." />
+</div>
+
+<button class="btn btn-primary" @onclick="DecryptText">Entschlüsseln</button>
+
+@if (!string.IsNullOrWhiteSpace(decryptedText))
+{
+    <div class="mt-3 alert alert-success">
+        <strong>Entschlüsselter Text:</strong> @decryptedText
+    </div>
+}
+
+@code {
+    private string inputText = string.Empty;
+    private string keyText = string.Empty;
+    private string decryptedText = string.Empty;
+
+    private void DecryptText()
+    {
+        try
+        {
+            var matrix = new Matrix(keyText);
+            decryptedText = matrix.Decrypt(inputText);
+        }
+
+        catch
+        {
+            decryptedText = "Fehler bei der Verschlüsselung";
+        }
+    }
+}
