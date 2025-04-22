@@ -1,0 +1,72 @@
+﻿@page "/neoPage"
+@using Model
+@rendermode InteractiveServer
+
+<style>
+    .boxes{
+        display: flex;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h3>Encrypting Page</h3>
+        </div>
+    </div>
+
+    <div class="boxes">
+        <div class="col-9">
+            <div class="form-group mb-3">
+                <label for="Keyword">Enter Keyword:</label>
+                <input id="Keyword" class="form-control" placeholder="Keyword" @bind="_keyword" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="Message">Enter Message:</label>
+                <input id="Message" class="form-control" placeholder="Message" @bind="_message" />
+            </div>
+
+            <div class="mb-4">
+                <button class="btn btn-primary" type="submit" @onclick="() => StartEcryption()">Encrypt</button>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="Encrypted">Encrypted Message:</label>
+                <input id="Encrypted" class="form-control" type="text" value="@encrypted" readonly />
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="text-end">
+                @if (clicked)
+                {
+                <img src="img/katzeUnscharf.jpg" class="img-fluid" width="280" />
+                }
+                else
+                {
+                <img src="img/katze.jpg" class="img-fluid" width="280" />
+                }
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+
+@code {
+    private string _keyword { get; set; }
+    private string _message { get; set; }
+    private string encrypted { get; set; }
+
+    private bool clicked { get; set; } = false;
+
+    private void StartEcryption()
+    {
+        Console.WriteLine("öilkjhgfjhgvc");
+        Matrix m = new Matrix("key");
+
+        clicked = true;
+        //encrypted = m.Encrypt(_message);
+    }
+}
