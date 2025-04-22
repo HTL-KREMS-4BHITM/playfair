@@ -17,7 +17,7 @@ public class Matrix : IChiffre
         // Normalize input: remove spaces, replace 'j' with 'i', etc.
         msg = msg.ToLower().Replace("j", "i").Replace(" ", "");
 
-        // Prepare digraphs (pairs of characters)
+        // Prepare digraphs (pairs of    characters)
         List<string> pairs = new List<string>();
         for (int i = 0; i < msg.Length; i += 2)
         {
@@ -105,7 +105,6 @@ public class Matrix : IChiffre
         return new string(new[] { newletter, secondletter });
     }
 
-
     private string CheckVertikal(char c1, char c2)
     {
         var (x1, y1) = CheckMethode(c1);
@@ -128,7 +127,6 @@ public class Matrix : IChiffre
 
         return new string(new[] { newletter, secondletter });
     }
-
     #endregion
     
     
