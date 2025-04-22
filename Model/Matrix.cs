@@ -58,7 +58,7 @@ public class Matrix : IChiffre
             }
             else // Rectangle case
             {
-                //encrypted.Append(CheckRectangle(pair[0], pair[1]));
+                encrypted.Append(CheckRectangle(pair[0], pair[1]));
             }
         }
 
@@ -114,6 +114,17 @@ public class Matrix : IChiffre
         // Wrap around vertically using modulo
         char newletter = Grid[(y1 + 1) % 5, x1];
         char secondletter = Grid[(y2 + 1) % 5, x2];
+
+        return new string(new[] { newletter, secondletter });
+    }
+
+    private string CheckRectangle(char c1, char c2)
+    {
+        var (x1, y1) = CheckMethode(c1);
+        var (x2, y2) = CheckMethode(c2);
+
+        char newletter = Grid[y1, x2];
+        char secondletter = Grid[y2, x1];
 
         return new string(new[] { newletter, secondletter });
     }
