@@ -26,11 +26,11 @@ public class Matrix : IChiffre
         {
             if (CheckMethode(paar[0]).x == CheckMethode(paar[1]).x)
             {
-                CheckHorizontal(paar[0], paar[1]);
+                return CheckHorizontal(paar[0], paar[1]);
             }
             else if (CheckMethode(paar[0]).y == CheckMethode(paar[1]).y)
             {
-                CheckVertikal(paar[0], paar[1]);
+                return CheckVertikal(paar[0], paar[1]);
             }
             else
             {
@@ -42,7 +42,7 @@ public class Matrix : IChiffre
             
         }
 
-        return "uj";
+        return null;
     }
 
     public string Decrypt(string msg)
