@@ -136,28 +136,23 @@ public class Matrix : IChiffre
     #region Matrix
     private char[,] GenerateMatrix(char[] key)
     {
-        int alphabetCounter = 0;
-        char[] alphabet = GetAlphabet(key);
         char[,] matrix = new char[5, 5];
-        for (int i = 0; i < 5; i++)
-        {
+        List<char> merged = new List<char>(key);
+        merged.AddRange(GetAlphabet(key)); // Fill up with missing letters
 
-            for (int j = 0; j < 5; j++)
+        int index = 0;
+        for (int row = 0; row < 5; row++)
+        {
+            for (int col = 0; col < 5; col++)
             {
-                if (j + i * 5 < key.Length)
-                {
-                    matrix[i, j] = key[j + i * 5];
-                }
-                else
-                {
-                    matrix[i, j] = alphabet[alphabetCounter];
-                    alphabetCounter++;
-                }
-          
+                matrix[row, col] = merged[index];
+                index++;
             }
         }
+
         return matrix;
     }
+
 
 
 
@@ -180,13 +175,18 @@ public class Matrix : IChiffre
 
     private string CheckKeyForduplicates(string key)
     {
-        char[] keyArray = new char[key.Length];
-        for (int i = 0; i < key.Length; i++)
+        List<char> result = new List<char>();
+
+        foreach (char c in key)
         {
-            if (keyArray.Contains(key[i])==false)
-                keyArray[i] = key[i];
+            if (!result.Contains(c))
+            {
+                result.Add(c);
+            }
         }
-        return new string(keyArray);
+
+        return new string(result.ToArray());
     }
+
     #endregion
 }
