@@ -74,19 +74,29 @@ public class Matrix : IChiffre
 
     private string CheckHorizontal(char c1, char c2)
     {
-        StringBuilder sb = new StringBuilder();
-        char newletter = (CheckMethode(c1).x< 5 ?  Grid[CheckMethode(c1).x+1, CheckMethode(c1).y] : Grid[0, CheckMethode(c1).y]);
-        char secondletter = (CheckMethode(c2).x< 5 ?  Grid[CheckMethode(c2).x+1, CheckMethode(c2).y] : Grid[0, CheckMethode(c1).y]);
-        return sb.Append(newletter).Append(secondletter).ToString();
+        var (x1, y1) = CheckMethode(c1);
+        var (x2, y2) = CheckMethode(c2);
+
+        // Wrap around horizontally using modulo
+        char newletter = Grid[y1, (x1 + 1) % 5];
+        char secondletter = Grid[y2, (x2 + 1) % 5];
+
+        return new string(new[] { newletter, secondletter });
     }
+
 
     private string CheckVertikal(char c1, char c2)
     {
-        StringBuilder sb = new StringBuilder();
-        char newletter = (CheckMethode(c1).y< 5 ?  Grid[CheckMethode(c1).x, CheckMethode(c1).y+1] : Grid[CheckMethode(c1).x, 0]);
-        char secondletter = (CheckMethode(c2).y< 5 ?  Grid[CheckMethode(c2).x, CheckMethode(c2).y+1] : Grid[CheckMethode(c2).x, 0]);
-        return sb.Append(newletter).Append(secondletter).ToString();
+        var (x1, y1) = CheckMethode(c1);
+        var (x2, y2) = CheckMethode(c2);
+
+        // Wrap around vertically using modulo
+        char newletter = Grid[(y1 + 1) % 5, x1];
+        char secondletter = Grid[(y2 + 1) % 5, x2];
+
+        return new string(new[] { newletter, secondletter });
     }
+
     #endregion
     
     
