@@ -23,17 +23,8 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Console.WriteLine("key: " +m.Key);
-        for (int i = 0; i < 5; i++)
-        {
-            for (int j = 0; j < 5; j++)
-            {
-                Console.WriteLine("Grid: " +m.Grid[i,j]);
-                
-            }
-        }
+        Console.WriteLine(m.Encrypt("same"));
 
-        Console.WriteLine();
     }
 
 }
