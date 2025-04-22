@@ -1,4 +1,6 @@
-﻿namespace Model;
+﻿using System.Text;
+
+namespace Model;
 
 public class Matrix : IChiffre
 {
@@ -12,14 +14,84 @@ public class Matrix : IChiffre
     }
     public string Encrypt(string msg)
     {
-        throw new NotImplementedException();
+        
+        List<string> paars  =new List<string>();
+        for (int i = 0; i < msg.Length; i=i+2)
+        {
+            paars.Add(msg[i] + "" + msg[i+1]);
+            
+        }
+
+        foreach (var paar in paars)
+        {
+            if (CheckMethode(paar[0]).x == CheckMethode(paar[1]).x)
+            {
+                CheckHorizontal(paar[0], paar[1]);
+            }
+            else if (CheckMethode(paar[0]).y == CheckMethode(paar[1]).y)
+            {
+                CheckVertikal(paar[0], paar[1]);
+            }
+            else
+            {
+                //CheckRectangle(paar[0], paar[1]);
+            }
+            
+            
+            
+            
+        }
+
+        return "uj";
     }
 
     public string Decrypt(string msg)
     {
         throw new NotImplementedException();
     }
+    
+    #region Crypting
 
+    private (int x, int y) CheckMethode(char c1)
+    {
+        int x = 0, y = 0;
+        for (int i = 0; i < 5; i++)
+        {
+
+            for (int j = 0; j < 5; j++)
+            {
+                if (Grid[i, j] == c1)
+                {
+                    x = j;
+                    y = i; 
+                }
+         
+          
+            }
+        }
+        return (x, y);
+    }
+
+    private string CheckHorizontal(char c1, char c2)
+    {
+        StringBuilder sb = new StringBuilder();
+        char newletter = (CheckMethode(c1).y< 5 ?  Grid[CheckMethode(c1).x, CheckMethode(c1).y+1] : Grid[CheckMethode(c1).x, 0]);
+        char secondletter = (CheckMethode(c2).y< 5 ?  Grid[CheckMethode(c2).x, CheckMethode(c2).y+1] : Grid[CheckMethode(c2).x, 0]);
+        return sb.Append(newletter).Append(secondletter).ToString();
+    }
+
+    private string CheckVertikal(char c1, char c2)
+    {
+        StringBuilder sb = new StringBuilder();
+        char newletter = (CheckMethode(c1).x< 5 ?  Grid[CheckMethode(c1).x+1, CheckMethode(c1).y] : Grid[0, CheckMethode(c1).y]);
+        char secondletter = (CheckMethode(c2).x< 5 ?  Grid[CheckMethode(c2).x+1, CheckMethode(c2).y] : Grid[0, CheckMethode(c1).y]);
+        return sb.Append(newletter).Append(secondletter).ToString();
+    }
+    #endregion
+    
+    
+    
+    #region Matrix
     private char[,] GenerateMatrix(char[] key)
     {
         int alphabetCounter = 0;
@@ -74,4 +146,5 @@ public class Matrix : IChiffre
         }
         return new string(keyArray);
     }
+    #endregion
 }
