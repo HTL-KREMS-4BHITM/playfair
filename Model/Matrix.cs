@@ -7,6 +7,7 @@ public class Matrix : IChiffre
     public Matrix(string key)
     {
         Key = key.Replace('j', 'i');
+        Key = CheckKeyForduplicates(Key);
         Grid = GenerateMatrix(Key.ToCharArray());
     }
     public string Encrypt(string msg)
@@ -61,5 +62,16 @@ public class Matrix : IChiffre
             }
         }
         return alphabet.ToArray();
+    }
+
+    private string CheckKeyForduplicates(string key)
+    {
+        char[] keyArray = new char[key.Length];
+        for (int i = 0; i < key.Length; i++)
+        {
+            if (keyArray.Contains(key[i])==false)
+                keyArray[i] = key[i];
+        }
+        return new string(keyArray);
     }
 }
